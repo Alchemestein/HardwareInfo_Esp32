@@ -1,3 +1,4 @@
+Markdown
 # ESP32 Minimalist Hardware Monitor
 
 A sleek, high-density PC hardware telemetry dashboard that runs on an ESP32 with a 128x64 SSD1306 OLED display. 
@@ -9,7 +10,7 @@ This project strips away cluttered split-screens and bubbly UI elements in favor
 * **Dynamic Spacing Engine:** The layout automatically detects missing sensors (like laptop GPUs or unreadable fans) and recalculates the vertical padding to perfectly distribute the remaining metrics across the screen.
 * **Custom Clock Equalizer:** CPU frequency is visualized as an ascending signal-bar block graphic that scales with your live clock speed.
 * **Precision Progress Tracks:** Thick 4px horizontal tracks with a 2px solid fill for CPU Temp, GPU Temp, and RAM utilization.
-* **Smart CPU Identification:** Automatically strips marketing fluff (like "Intel", "Core", "TM") to display just the raw model number (e.g., `i7-12700K` or `R7 5800X`).
+* **Smart CPU Identification:** Automatically strips marketing fluff (like "Intel", "Core", "TM") to display just the raw model number.
 * **Clean Status Bar:** Top-level 12-hour AM/PM time and a phone-style battery monitor complete with a custom vector lightning bolt ⚡ when charging.
 * **Cross-Platform:** Runs natively on Linux and Windows.
 
@@ -33,18 +34,40 @@ The Python script requires a few dependencies to read your system sensors.
 Install the packages natively to avoid virtual environment conflicts:
 ```bash
 sudo pacman -S python-py-cpuinfo python-pyserial python-psutil
-## ⚙️ Configuration
+For Windows / Debian / Ubuntu:
 
-Before running the dashboard, you need to tell the Python script which USB port your ESP32 is plugged into. 
+Bash
+pip install py-cpuinfo pyserial psutil
+(Note for Windows users: You will also need to run pip install WinTmp for temperature reading).
 
-1. **Find your Port:**
-   * **On Linux (CachyOS/Arch):** Open your terminal and run `ls /dev/tty*`. Plug in your ESP32 and run it again. The new device that appears is your ESP32 (usually `/dev/ttyUSB0` or `/dev/ttyACM0`).
-   * **On Windows:** Right-click the Start button, open **Device Manager**, and look under "Ports (COM & LPT)". Note the COM number (e.g., `COM3`).
+⚙️ Configuration
+Before running the dashboard, you need to tell the Python script which USB port your ESP32 is plugged into.
 
-2. **Update `monitor.py`:**
-   Open the Python script in your text editor and locate this block near the top:
-   ```python
-   if OS_TYPE == 'Windows':
-       SERIAL_PORT = 'COM3'  # <-- Change this to your Windows COM port
-   else:
-       SERIAL_PORT = '/dev/ttyUSB0' # <-- Change this to your Linux port
+Find your Port:
+
+On Linux (CachyOS/Arch): Open your terminal and run ls /dev/tty*. Plug in your ESP32 and run it again. The new device that appears is your ESP32 (usually /dev/ttyUSB0 or /dev/ttyACM0).
+
+On Windows: Right-click the Start button, open Device Manager, and look under "Ports (COM & LPT)". Note the COM number (e.g., COM3).
+
+Update monitor.py:
+Open the Python script in your text editor and locate this block near the top:
+
+Python
+if OS_TYPE == 'Windows':
+    SERIAL_PORT = 'COM3'  # <-- Change this to your Windows COM port
+else:
+    SERIAL_PORT = '/dev/ttyUSB0' # <-- Change this to your Linux port
+▶️ Usage
+Plug your ESP32 into your PC via USB.
+
+Open your terminal or command prompt.
+
+Navigate to the folder where your script is located:
+
+Bash
+cd path/to/esp32-hardware-monitor
+Run the backend script:
+
+Bash
+python monitor.py
+The script will print "Connected to ESP32. Beaming unified telemetry..." and your OLED screen will instantly illuminate with the live data grid.
