@@ -1,5 +1,8 @@
 # ESP32 Minimalist Hardware Monitor
 
+<img width="1280" height="720" alt="WhatsApp Image 2026-07-16 at 2 34 36 AM" src="https://github.com/user-attachments/assets/4f012875-2485-4a94-87e2-9e4209afec55" />
+
+
 A sleek, high-density PC hardware telemetry dashboard that runs on an ESP32 with a 128x64 SSD1306 OLED display. 
 
 This project strips away cluttered split-screens and bubbly UI elements in favor of a hardcore, unified developer aesthetic. It uses a dynamic Python backend to fetch system data and beams it over Serial to the ESP32.
