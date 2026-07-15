@@ -1,4 +1,3 @@
-Markdown
 # ESP32 Minimalist Hardware Monitor
 
 A sleek, high-density PC hardware telemetry dashboard that runs on an ESP32 with a 128x64 SSD1306 OLED display. 
