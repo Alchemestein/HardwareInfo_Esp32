@@ -33,3 +33,18 @@ The Python script requires a few dependencies to read your system sensors.
 Install the packages natively to avoid virtual environment conflicts:
 ```bash
 sudo pacman -S python-py-cpuinfo python-pyserial python-psutil
+## ⚙️ Configuration
+
+Before running the dashboard, you need to tell the Python script which USB port your ESP32 is plugged into. 
+
+1. **Find your Port:**
+   * **On Linux (CachyOS/Arch):** Open your terminal and run `ls /dev/tty*`. Plug in your ESP32 and run it again. The new device that appears is your ESP32 (usually `/dev/ttyUSB0` or `/dev/ttyACM0`).
+   * **On Windows:** Right-click the Start button, open **Device Manager**, and look under "Ports (COM & LPT)". Note the COM number (e.g., `COM3`).
+
+2. **Update `monitor.py`:**
+   Open the Python script in your text editor and locate this block near the top:
+   ```python
+   if OS_TYPE == 'Windows':
+       SERIAL_PORT = 'COM3'  # <-- Change this to your Windows COM port
+   else:
+       SERIAL_PORT = '/dev/ttyUSB0' # <-- Change this to your Linux port
